@@ -12,24 +12,36 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     User user1;
-    private int value;
+    private String name;
+    private String desc;
+    private boolean follow;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user1 = new User("Hello World!", "Long Descriptionnnnnn", 1, false);
+        //user1 = new User("Hello World!", "Long Descriptionnnnnn", 1, false);
         Intent receivedData = getIntent();
-        value = receivedData.getIntExtra("integer",0);
+        name = receivedData.getStringExtra("Name");
+        desc = receivedData.getStringExtra("desc");
+        id = receivedData.getIntExtra("id",0);
+        follow = receivedData.getBooleanExtra("followed",true);
 
         TextView nameText = findViewById(R.id.nametext);
         TextView descText = findViewById(R.id.desctext);
         Button buttonf = findViewById(R.id.buttonf);
         Button buttonm = findViewById(R.id.button2);
 
-        nameText.setText(user1.name + value);
-        descText.setText(user1.desc);
-        buttonf.setText("Follow");
+        nameText.setText(name);
+        descText.setText(desc);
+        if (follow == true){
+            buttonf.setText("Unfollow");
+        }
+        else{
+            buttonf.setText("Follow");
+        }
+
 
         buttonf.setOnClickListener(new View.OnClickListener() {
             int duration = Toast.LENGTH_SHORT;
@@ -37,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                if (user1.followed == false){
+                if (follow == false){
                     buttonf.setText("Unfollow");
-                    user1.followed = true;
+                    follow = true;
                     toast = Toast.makeText(getApplicationContext(), "Followed" ,duration);
                     toast.show();
                 }
                 else{
                     buttonf.setText("Follow");
-                    user1.followed = false;
+                    follow = false;
                     toast = Toast.makeText(getApplicationContext(), "Unfollowed" ,duration);
                     toast.show();
                 }

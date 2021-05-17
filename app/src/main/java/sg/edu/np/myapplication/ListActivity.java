@@ -39,7 +39,7 @@ public class ListActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = findViewById(R.id.recycleview);
-        Adapter myAdaptor = new Adapter(userList);
+        Adapter myAdaptor = new Adapter(this, userList);
         LinearLayoutManager LayoutManger = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(LayoutManger);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
